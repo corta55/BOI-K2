@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenuStart : MonoBehaviour {
 
     public GameObject panelCredit;
+    public GameObject panelExit;
 
     public void startButton()
     {
@@ -18,17 +19,23 @@ public class MainMenuStart : MonoBehaviour {
         Application.Quit();
     }
 
+    public void exitNo()
+    {
+        Debug.Log("gajadi");
+        panelExit.SetActive(false);
+    }
+
     public void creditButton()
     {
         panelCredit.SetActive(true);
-        Debug.Log("ganti scene");
+        Debug.Log("credit");
         //SceneManager.LoadScene("cobaa");
     }
 
     public void exitButton()
     {
-        panelCredit.SetActive(true);
-        Debug.Log("ganti scene");
+        panelExit.SetActive(true);
+        Debug.Log("nanya");
         //SceneManager.LoadScene("cobaa");
     }
 

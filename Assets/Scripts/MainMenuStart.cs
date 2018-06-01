@@ -2,15 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartButton : MonoBehaviour {
+public class MainMenuStart : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public GameObject panelCredit;
+
+    public void startButton()
+    {
+        Debug.Log("ganti scene");
+        //SceneManager.LoadScene("cobaa");
+    }
+
+    public void exitYes()
+    {
+        Debug.Log("keluar");
+        Application.Quit();
+    }
+
+    public void creditButton()
+    {
+        panelCredit.SetActive(true);
+        Debug.Log("ganti scene");
+        //SceneManager.LoadScene("cobaa");
+    }
+
+    public void exitButton()
+    {
+        panelCredit.SetActive(true);
+        Debug.Log("ganti scene");
+        //SceneManager.LoadScene("cobaa");
+    }
+
+    public void Update()
+    {
+        if (panelCredit.activeSelf && Input.GetMouseButton(0))
+        {
+            panelCredit.SetActive(false);
+        }
+
+    }
 }

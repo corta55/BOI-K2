@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Crouch : MonoBehaviour {
+public class ControllerAdik : MonoBehaviour {
 
     private Animator anim;
     private HoleManager hole;
@@ -11,27 +11,41 @@ public class Crouch : MonoBehaviour {
     private bool frontHole = false;
     public float speed = 5f;
 
+
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    void FixedUpdate () {
-        if (Input.GetKey("down"))
+    private void Update()
+    {
+        if (!GameVariables.isCrouching)
         {
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(Vector2.left * speed * Time.deltaTime);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector2.right * speed * Time.deltaTime);
+            }
+        }
+    }
+
+    void FixedUpdate () {
+        if (Input.GetKey("down") && !GameVariables.isCrouching && frontHole)
+        {
+            transform.position = hole.transform.position;
+            GameVariables.isCrouching = true;
             anim.SetBool("IsCrouch",true);
-            crouching = true;
+            StartCoroutine(delayCrouchIn());
             Debug.Log("Jongkok");
         }
-        else
+        if (frontHole && crouching)
         {
-            anim.SetBool("IsCrouch", false);
             crouching = false;
-            Debug.Log("Stand");
-        }
-        if (frontHole && crouching == true)
-        {
             hole.goesThrough();
+            StartCoroutine(delayCrouchOut());
         }
 	}
 
@@ -53,6 +67,23 @@ public class Crouch : MonoBehaviour {
         {
             frontHole = false;
         }
+    }
+
+    IEnumerator delayCrouchIn()
+    {
+        yield return new WaitForSeconds(1f);
+        crouching = true;
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    IEnumerator delayCrouchOut()
+    {
+        transform.GetComponent<SpriteRenderer>().enabled = true;
+        yield return new WaitForSeconds(1f);
+        anim.SetBool("IsCrouch", false);
+        Debug.Log("Stand");
+        yield return new WaitForSeconds(1f);
+        GameVariables.isCrouching = false;
     }
 
     //private void OnTriggerEnter2D(Collider2D other)

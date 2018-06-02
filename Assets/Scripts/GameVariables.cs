@@ -3,4 +3,6 @@
     public static bool boundingCam = true;
     public static string followingPlayer = "Player";
 
+    public static bool isCrouching;
+
 }

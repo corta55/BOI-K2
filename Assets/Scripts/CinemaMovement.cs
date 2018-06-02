@@ -7,7 +7,7 @@ public class CinemaMovement : MonoBehaviour {
     [SerializeField] private string followingPlayer; 
     public float speedFollowing = 5f;
 
-    private Vector2 posCam;
+    private Vector3 posCam;
     Vector3 newPosition;
 
     #region Bounding Cam
@@ -42,6 +42,7 @@ public class CinemaMovement : MonoBehaviour {
         {
             newPosition = GameObject.FindGameObjectWithTag(followingPlayer).transform.position;
             newPosition.z = -10;
+            posCam.z = -10;
 
             if (GameVariables.boundingCam)//
             {

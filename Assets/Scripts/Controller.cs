@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour {
 
     private void Update()
     {
-        if (!GameVariables.isCrouching)
+        if (!GameVariables.isInteract)
         {
             if (Input.GetKey(KeyCode.A))
             {

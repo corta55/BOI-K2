@@ -7,6 +7,7 @@ public class ControllerAdik : MonoBehaviour {
 
     private Animator anim;
     private HoleManager hole;
+    private Interactable interact;
     private bool crouching = false;
     private bool frontHole = false;
     public float speed = 5f;
@@ -14,12 +15,13 @@ public class ControllerAdik : MonoBehaviour {
 
     private void Start()
     {
+        GameVariables.activePlayer = transform.gameObject;
         anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (!GameVariables.isCrouching)
+        if (!GameVariables.isInteract)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -33,10 +35,10 @@ public class ControllerAdik : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        if (Input.GetKey("down") && !GameVariables.isCrouching && frontHole)
+        if (Input.GetKey(KeyCode.E) && !GameVariables.isInteract && frontHole)
         {
-            transform.position = hole.transform.position;
-            GameVariables.isCrouching = true;
+            transform.position = interact.transform.position;
+            GameVariables.isInteract = true;
             anim.SetBool("IsCrouch",true);
             StartCoroutine(delayCrouchIn());
             Debug.Log("Jongkok");
@@ -44,19 +46,24 @@ public class ControllerAdik : MonoBehaviour {
         if (frontHole && crouching)
         {
             crouching = false;
-            hole.goesThrough();
+            interact.interact();
             StartCoroutine(delayCrouchOut());
         }
 	}
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Kena Collider " + other.collider.tag + " and  " + crouching);
-        if (other.collider.tag == "Hole" )
+        Debug.Log("Kena Collider " + other.tag + " and  " + crouching);
+        if (other.tag == "Hole" )
         {
             hole = other.gameObject.GetComponent<HoleManager>();
             if (hole == null) frontHole = false;
-            Debug.Log("Collider dengan tag = " + other.collider.tag);
+            Debug.Log("Collider dengan tag = " + other.tag);
+            frontHole = true;
+        }
+        if (other.tag.Equals("Door"))
+        {
+            interact = other.gameObject.GetComponent<Interactable>();
             frontHole = true;
         }
     }
@@ -83,7 +90,7 @@ public class ControllerAdik : MonoBehaviour {
         anim.SetBool("IsCrouch", false);
         Debug.Log("Stand");
         yield return new WaitForSeconds(1f);
-        GameVariables.isCrouching = false;
+        GameVariables.isInteract = false;
     }
 
     //private void OnTriggerEnter2D(Collider2D other)

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hole
   - Ground
+  - Door
   layers:
   - Default
   - TransparentFX

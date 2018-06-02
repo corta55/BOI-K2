@@ -13,6 +13,20 @@ public class MainMenuStart : MonoBehaviour {
         //SceneManager.LoadScene("cobaa");
     }
 
+
+
+    public void creditButton()
+    {
+        panelCredit.SetActive(true);
+        Debug.Log("credit");
+    }
+
+    public void exitButton()
+    {
+        panelExit.SetActive(true);
+        Debug.Log("nanya");
+    }
+
     public void exitYes()
     {
         Debug.Log("keluar");
@@ -23,20 +37,6 @@ public class MainMenuStart : MonoBehaviour {
     {
         Debug.Log("gajadi");
         panelExit.SetActive(false);
-    }
-
-    public void creditButton()
-    {
-        panelCredit.SetActive(true);
-        Debug.Log("credit");
-        //SceneManager.LoadScene("cobaa");
-    }
-
-    public void exitButton()
-    {
-        panelExit.SetActive(true);
-        Debug.Log("nanya");
-        //SceneManager.LoadScene("cobaa");
     }
 
     public void Update()

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KosongAja : MonoBehaviour {
+public class CinemaMovement : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 		
 	}
